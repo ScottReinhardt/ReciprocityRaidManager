@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using WoW.BattleNet.JSON;
-using WoW.Core;
+using BattleNetApi.JSON;
+using WoW.Core.Enums;
 using WoW.Core.Models;
-using WoW.Enums;
 
 namespace BattleNetApi
 {
@@ -145,13 +144,50 @@ namespace BattleNetApi
             return buffs;
         }
 
+        public static ItemModel ToItemModel(this BattleNetItem item)
+        {
+            if(item == null)
+                return new ItemModel();
+
+            return new ItemModel()
+            {
+                ItemLevel = item.ItemLevel,
+                Name = item.Name,
+                Quality = (ItemQuality)item.Quality,
+            };
+        }
+
+        public static EquipmentModel ToEquipmentModel(this BattleNetItems items)
+        {
+            return new EquipmentModel()
+            {
+                AverageEquippedItemLevel = items.AverageItemLevelEquipped,
+                AverageItemLevel = items.AverageItemLevel,
+                Back = items.Back.ToItemModel(),
+                Chest = items.Chest.ToItemModel(),
+                Feet = items.Feet.ToItemModel(),
+                Finger1 = items.Finger1.ToItemModel(),
+                Finger2 = items.Finger2.ToItemModel(),
+                Hands = items.Hands.ToItemModel(),
+                Head = items.Head.ToItemModel(),
+                Legs = items.Legs.ToItemModel(),
+                MainHand = items.MainHand.ToItemModel(),
+                Neck = items.Neck.ToItemModel(),
+                OffHand = items.OffHand.ToItemModel(),
+                Shoulder = items.Shoulder.ToItemModel(),
+                Trinket1 = items.Trinket1.ToItemModel(),
+                Trinket2 = items.Trinket2.ToItemModel(),
+                Waist = items.Waist.ToItemModel(),
+                Wrist = items.Wrist.ToItemModel(),
+            };
+        }
+
         public static PlayerModel ToPlayerModel(this BattleNetCharacter character)
         {
             var model = new PlayerModel()
             {
                 ArmorType = character.GetArmorType(),
-                AverageItemLevel = character.Items.AverageItemLevel,
-                AverageEquippedItemLevel = character.Items.AverageItemLevelEquipped,
+                Equipment = character.Items.ToEquipmentModel(),
                 BuffsBrought = character.GetBuffsBrought(),
                 Class = (Class)character.Class,
                 Name = character.Name,

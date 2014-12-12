@@ -11,18 +11,10 @@
             @Html.DisplayFor(m => m)
             <div class="panel">
                 <div class="row">
-                    <div class="large-4 medium-4 columns">
-                        <p><a href="http://foundation.zurb.com/docs">Foundation Documentation</a><br />Everything you need to know about using the framework.</p>
-                    </div>
-                    <div class="large-4 medium-4 columns">
-                        <p><a href="http://github.com/zurb/foundation">Foundation on Github</a><br />Latest code, issue reports, feature requests and more.</p>
-                    </div>
-                    <div class="large-4 medium-4 columns">
-                        <p><a href="http://twitter.com/foundationzurb">@@foundationzurb</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</p>
-                    </div>
+                    @Html.DisplayFor(m => m.Equipment)
                 </div>
                 <div class="alert-box info">
-                    <span>ASP.Net NuGet package for MVC was created by <a href="http://about.me/edcharbeneau">Ed Charbeneau</a>.</span>
+                    <span>Validation will go here</span>
                 </div>
             </div>
         </div>

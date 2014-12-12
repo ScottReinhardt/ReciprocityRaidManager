@@ -19,10 +19,10 @@ namespace BattleNetApi
                 Console.WriteLine("Duplicate key: {0}", key);
                 return;
             }
-            dictionary.Add(key,value);
+            dictionary.Add(key, value);
         }
 
-        public static T ConvertJsonToObject<T>(this string str)
+        public static T ConvertJsonToObject<T>(this string str) where T : class
         {
             return JsonConvert.DeserializeObject<T>(str);
         }

@@ -1,7 +1,6 @@
 ﻿using BattleNetApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WoW.BattleNet;
-using WoW.Enums;
+using WoW.Core.Enums;
 
 namespace WoW.Tests.Enums
 {

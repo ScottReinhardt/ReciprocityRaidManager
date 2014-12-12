@@ -1,4 +1,4 @@
-﻿using WoW.Enums;
+﻿using WoW.Core.Enums;
 
 namespace WoW.Core.Models
 {

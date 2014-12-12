@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BattleNetApi">
+      <HintPath>..\WoW.Web\Bin\BattleNetApi.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,6 +52,8 @@
     <Compile Include="Enums\Stats.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Interfaces\ICharacterImporter.cs" />
+    <Compile Include="Interfaces\ILogApi.cs" />
+    <Compile Include="Models\EquipmentModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

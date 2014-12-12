@@ -1,7 +1,7 @@
 ﻿using System;
 using BattleNetApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WoW.Enums;
+using WoW.Core.Enums;
 
 namespace WoW.Tests.Characters
 {
@@ -22,8 +22,8 @@ namespace WoW.Tests.Characters
             Assert.IsTrue(character.BuffsBrought.Count > 0, "Buffs didn't load");
             Assert.IsTrue(character.Class == Class.DeathKnight, "Wrong class");
             Assert.IsFalse(character.Specialization.IsNullOrWhitespace(), "Specialization wrong");
-            Assert.IsFalse(Math.Abs(character.AverageEquippedItemLevel - default(double)) < 0.1, "Average Equipped Item Level didn't load");
-            Assert.IsFalse(Math.Abs(character.AverageItemLevel - default(double)) < 0.1, "Average Item Level didn't load");
+            Assert.IsFalse(Math.Abs(character.Equipment.AverageEquippedItemLevel - default(double)) < 0.1, "Average Equipped Item Level didn't load");
+            Assert.IsFalse(Math.Abs(character.Equipment.AverageItemLevel - default(double)) < 0.1, "Average Item Level didn't load");
             Assert.IsFalse(character.Role == default(Role), "Role didn't load");
         }
     }

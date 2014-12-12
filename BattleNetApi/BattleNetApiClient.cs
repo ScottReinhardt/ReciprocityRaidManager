@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Linq;
 using System.Net;
-using WoW.BattleNet.JSON;
+using BattleNetApi.JSON;
 using WoW.Core;
 using WoW.Core.Interfaces;
 using WoW.Core.Models;

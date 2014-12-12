@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
 using Newtonsoft.Json;
 
-namespace WoW.BattleNet.JSON
+namespace BattleNetApi.JSON
 {
     public class BattleNetItems
     {
@@ -60,6 +57,6 @@ namespace WoW.BattleNet.JSON
         public BattleNetItem MainHand { get; set; }
 
         [JsonProperty("offHand")]
-        public BattleNetItems OffHand { get; set; }
+        public BattleNetItem OffHand { get; set; }
     }
 }

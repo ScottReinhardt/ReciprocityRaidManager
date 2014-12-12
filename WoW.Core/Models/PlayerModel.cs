@@ -1,22 +1,30 @@
 ﻿using System.Collections.Generic;
-using WoW.Enums;
+using System.ComponentModel.DataAnnotations;
+using WoW.Core.Enums;
 
 namespace WoW.Core.Models
 {
     public class PlayerModel
     {
+        public PlayerModel()
+        {
+            Equipment = new EquipmentModel();
+        }
+
         //Character Information
         public string Name { get; set; }
         public string Realm { get; set; }
-
-        public double AverageItemLevel { get; set; }
-        public double AverageEquippedItemLevel { get; set; }
 
         public double SimcraftDps { get; set; }
 
         public Class Class { get; set; }
 
         public Race Race { get; set; }
+
+        [Display(Name = "Logs Profile Link")]
+        public string LogsProfileLink { get; set; }
+
+        public EquipmentModel Equipment { get; set; }
 
         //Raid Comp
         public Role Role { get; set; }

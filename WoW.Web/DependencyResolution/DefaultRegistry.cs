@@ -16,6 +16,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using BattleNetApi;
+using WarcraftLogs;
 using WoW.Core.Interfaces;
 
 namespace WoW.DependencyResolution {
@@ -27,6 +28,7 @@ namespace WoW.DependencyResolution {
 
         public DefaultRegistry() {
             For<ICharacterImporter>().Use<BattleNetApiClient>().SelectConstructor(() => new BattleNetApiClient());
+            For<ILogApi>().Use<WarcraftLogsApi>();
             Scan(
                 scan => {
                     scan.AssembliesFromApplicationBaseDirectory();

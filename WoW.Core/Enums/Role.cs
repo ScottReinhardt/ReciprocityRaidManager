@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WoW.Enums
+namespace WoW.Core.Enums
 {
     public enum Role
     {

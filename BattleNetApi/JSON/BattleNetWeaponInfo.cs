@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace WoW.BattleNet.JSON
+namespace BattleNetApi.JSON
 {
     public class BattleNetWeaponInfo
     {

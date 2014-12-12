@@ -1,4 +1,4 @@
-﻿namespace WoW.Enums
+﻿namespace WoW.Core.Enums
 {
     public enum ArmorType
     {

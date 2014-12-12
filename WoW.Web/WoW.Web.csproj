@@ -49,10 +49,6 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\packages\structuremap.3.1.1.134\lib\net40\StructureMap.dll</HintPath>
     </Reference>
@@ -198,6 +194,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\DisplayTemplates\PlayerModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\EquipmentModel.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ItemModel.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -213,6 +211,10 @@
     <ProjectReference Include="..\BattleNetApi\BattleNetApi.csproj">
       <Project>{8ef9a7fc-8840-4dab-8f09-f5c5462cf6e9}</Project>
       <Name>BattleNetApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WarcraftLogs\WarcraftLogs.csproj">
+      <Project>{4E70723B-2BF0-4442-B50A-261DB0AE8B85}</Project>
+      <Name>WarcraftLogs</Name>
     </ProjectReference>
     <ProjectReference Include="..\WoW.Core\WoW.Core.csproj">
       <Project>{a117602c-8608-480a-add7-fa1f795aa35d}</Project>
