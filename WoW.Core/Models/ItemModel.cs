@@ -8,6 +8,7 @@ namespace WoW.Core.Models
     public class ItemModel
     {
         [Key]
+        public int Id { get; set; }
         public string ItemId { get; set; }
         public string Name { get; set; }
         public ItemQuality Quality { get; set; }

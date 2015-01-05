@@ -22,6 +22,7 @@ namespace WoW.Core.Objects
             Amount = amount;
         }
         [Key]
+        public int Id { get; set; }
         public Stat Stat { get; set; }
         public int Amount { get; set; }
 

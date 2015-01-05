@@ -8,7 +8,7 @@ namespace WoW.Core.Models
     {
         public PlayerModel()
         {
-            Equipment = new EquipmentModel();
+            //Equipment = new EquipmentModel();
         }
         [Key]
         public int PlayerId { get; set; }
@@ -27,7 +27,7 @@ namespace WoW.Core.Models
         [Display(Name = "Logs Profile Link")]
         public string LogsProfileLink { get; set; }
 
-        public virtual EquipmentModel Equipment { get; set; }
+        //public virtual EquipmentModel Equipment { get; set; }
 
         //Raid Comp
         public Role Role { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Web.Routing;
 using WoW.Core.Interfaces;
 using WoW.Core.Objects;
 using WoW.Models;
@@ -29,14 +30,13 @@ namespace WoW.Controllers
                 return View("Index", model);
             }
 
-            if (!_dataProvider.RaidNameAvailable(model.GroupName))
+            if (!_dataProvider.RaidNameAvailable(model.GroupName, model.ServerName))
             {
-                ModelState.AddModelError("GroupName", "Group Name Already Taken");
-                return View("Index", model);
+                return RedirectToAction("Index", "Raid", new {raidId = _dataProvider.GetRaidByName(model.GroupName, model.ServerName)});
             }
 
-            _dataProvider.CreateRaidGroup(model.GroupName);
-            return RedirectToAction("Index", "Raid");
+            var id =_dataProvider.CreateRaidGroup(model.GroupName, model.ServerName);
+            return RedirectToAction("Index", "Raid", new {raidId = id});
         }
     }
 }

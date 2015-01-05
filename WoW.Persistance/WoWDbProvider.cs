@@ -17,20 +17,36 @@ namespace WoW.Persistance
             _dbContext = new WoWDbContext();
         }
 
-        public bool RaidNameAvailable(string name)
+        public bool RaidNameAvailable(string name, string server)
         {
             return _dbContext.RaidGroup.None(r => r.RaidName == name);
         }
 
-        public void CreateRaidGroup(string name)
+        public int GetRaidByName(string name, string server)
         {
-            _dbContext.RaidGroup.Add(new RaidModel { RaidName = name });
+            var raid = _dbContext.RaidGroup.FirstOrDefault(g => g.RaidName == name && g.Server == server);
+            return raid == null ? 0 : raid.RaidId;
+        }
+
+        public int CreateRaidGroup(string name, string server)
+        {
+            _dbContext.RaidGroup.Add(new RaidModel { RaidName = name, Server = server});
             _dbContext.SaveChanges();
+
+            return GetRaidByName(name, server);
         }
 
         public RaidModel GetRaiderDetails(int raidId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var raid = _dbContext.RaidGroup.FirstOrDefault(r => r.RaidId == raidId);
+                return raid;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

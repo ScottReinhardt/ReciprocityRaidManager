@@ -34,9 +34,15 @@ namespace WoW.Controllers
         public ActionResult Index(int raidId)
         {
             var raid = _dataProvider.GetRaiderDetails(raidId);
+
+            if (raid == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var model = new AddRaiderModel()
             {
-                Raiders = raid.Raiders,
+                Raiders = raid.Raiders ?? new List<PlayerModel>(),
             };
             return View(model);
         }

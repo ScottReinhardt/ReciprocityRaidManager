@@ -283,7 +283,7 @@ namespace BattleNetApi
             var model = new PlayerModel()
             {
                 ArmorType = character.GetArmorType(),
-                Equipment = character.Items.ToEquipmentModel(),
+                //Equipment = character.Items.ToEquipmentModel(),
                 BuffsBrought = character.GetBuffsBrought(),
                 Class = (Class)character.Class,
                 Name = character.Name,
