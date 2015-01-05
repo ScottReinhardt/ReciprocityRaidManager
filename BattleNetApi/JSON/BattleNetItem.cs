@@ -31,5 +31,8 @@ namespace BattleNetApi.JSON
 
         [JsonProperty("bonusLists")]
         public List<object> BonusLists { get; set; }
+
+        [JsonProperty("tooltipParams")]
+        public BattleNetTooltipParams TooltipParams { get; set; }
     }
 }

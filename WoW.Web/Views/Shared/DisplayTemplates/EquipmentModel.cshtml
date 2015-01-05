@@ -1,6 +1,43 @@
 ﻿@model WoW.Core.Models.EquipmentModel
-           
-<div class="large-3 medium-3 columns">
+
+<div class="large-12 medium-12 columns accordion">
     <h3>Major Items</h3>
-    <p>@Html.DisplayFor(m => m.Head)</p>
+    <div class="panel" style="display: none;">
+        <div class="row">
+            @Html.DisplayFor(m => m.MainHand)
+            @Html.DisplayFor(m => m.Trinket1)
+            @Html.DisplayFor(m => m.Trinket2)
+        </div>
+        <div class="row">
+            @Html.DisplayFor(m => m.Head)
+            @Html.DisplayFor(m => m.Chest)
+            @Html.DisplayFor(m => m.Legs)
+        </div>
+    </div>
+    <h3>Minor Items</h3>
+    <div class="panel" style="display: none;">
+        <div class="row">
+            @Html.DisplayFor(m => m.Shoulder)
+            @Html.DisplayFor(m => m.Back)
+            @Html.DisplayFor(m => m.Wrist)
+        </div>
+        
+        <div class="row">
+            @Html.DisplayFor(m => m.Hands)
+            @Html.DisplayFor(m => m.Waist)
+            @Html.DisplayFor(m => m.Feet)
+        </div>
+        
+        <div class="row">
+            @Html.DisplayFor(m => m.Neck)
+            @Html.DisplayFor(m => m.Finger1)
+            @Html.DisplayFor(m => m.Finger2)
+        </div>
+        
+        <div class="row">
+            @Html.DisplayFor(m => m.OffHand)
+        </div>
+
+    </div>
+
 </div>

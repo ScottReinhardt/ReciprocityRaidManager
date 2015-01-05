@@ -10,9 +10,11 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
     @Styles.Render("~/Content/foundation/css")
+    @*@Styles.Render("~/bundles/jquery.ui")*@
 
     @RenderSection("head", required: false)
     @Scripts.Render("~/bundles/modernizr")
+    <link href="/Content/Site.css" rel="stylesheet"/>
 </head>
 <body>
     @RenderBody()

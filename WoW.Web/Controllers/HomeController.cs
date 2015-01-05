@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using WoW.Core.Interfaces;
+using WoW.Core.Objects;
+using WoW.Models;
 
 namespace WoW.Controllers
 {
@@ -7,21 +10,33 @@ namespace WoW.Controllers
     
     public class HomeController : Controller
     {
-        private readonly ICharacterImporter _importer;
-        private readonly ILogApi _logApi;
+        private readonly IWoWPersistanceProvider _dataProvider;
 
-        public HomeController(ICharacterImporter importer, ILogApi logApi)
+        public HomeController(ICharacterImporter importer, ILogApi logApi, IWoWPersistanceProvider dataProvider)
         {
-            _importer = importer;
-            _logApi = logApi;
+            _dataProvider = dataProvider;
         }
 
         public ActionResult Index()
         {
-            var model = _importer.GetCharacterProfileAndItems("Zarania", "Stormrage");
-            model.LogsProfileLink = _logApi.GetCharacterProfile(model.Name,model.Realm, "US");
-            return View(model);
+            return View(new CreateRaidModel());
         }
 
+        public ActionResult CreateRaidGroup(CreateRaidModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", model);
+            }
+
+            if (!_dataProvider.RaidNameAvailable(model.GroupName))
+            {
+                ModelState.AddModelError("GroupName", "Group Name Already Taken");
+                return View("Index", model);
+            }
+
+            _dataProvider.CreateRaidGroup(model.GroupName);
+            return RedirectToAction("Index", "Raid");
+        }
     }
 }

@@ -61,8 +61,10 @@
     <Compile Include="JSON\BattleNetSpell.cs" />
     <Compile Include="JSON\BattleNetStat.cs" />
     <Compile Include="JSON\BattleNetTalent.cs" />
+    <Compile Include="JSON\BattleNetTooltipParams.cs" />
     <Compile Include="JSON\BattleNetWeaponDamage.cs" />
     <Compile Include="JSON\BattleNetWeaponInfo.cs" />
+    <Compile Include="JSON\ParseEnchant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

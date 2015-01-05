@@ -82,6 +82,7 @@
     <Compile Include="Characters\CharacterImportTest.cs" />
     <Compile Include="Enums\EnumTest.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Persistance\DatabaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
@@ -99,6 +100,10 @@
     <ProjectReference Include="..\WoW.Core\WoW.Core.csproj">
       <Project>{a117602c-8608-480a-add7-fa1f795aa35d}</Project>
       <Name>WoW.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WoW.Persistance\WoW.Persistance.csproj">
+      <Project>{CF778226-88FC-4897-B152-2F0E31F54961}</Project>
+      <Name>WoW.Persistance</Name>
     </ProjectReference>
     <ProjectReference Include="..\WoW.Web\WoW.Web.csproj">
       <Project>{0C8B0E43-353A-4E56-BB1D-1121DB273FAB}</Project>

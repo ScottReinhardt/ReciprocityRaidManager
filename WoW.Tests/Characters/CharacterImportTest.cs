@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using BattleNetApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WoW.Core.Enums;
@@ -14,7 +15,9 @@ namespace WoW.Tests.Characters
             var client = new BattleNetApiClient();
 
             var character = client.GetCharacterProfileAndItems("Zarania", "Stormrage");
-
+            
+            
+            Assert.IsNotNull(client.GetEnchants(), "Enchant count is wrong");
             Assert.IsNotNull(character, "Character is null");
             Assert.IsTrue(character.Name == "Zarania", "Loaded wrong character");
             Assert.IsTrue(character.Realm == "Stormrage", "Loaded wrong realm");

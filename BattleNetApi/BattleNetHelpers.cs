@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using BattleNetApi.JSON;
 using WoW.Core.Enums;
 using WoW.Core.Models;
+using WoW.Core.Objects;
 
 namespace BattleNetApi
 {
@@ -148,18 +150,56 @@ namespace BattleNetApi
         {
             if(item == null)
                 return new ItemModel();
-
+            
             return new ItemModel()
             {
                 ItemLevel = item.ItemLevel,
                 Name = item.Name,
                 Quality = (ItemQuality)item.Quality,
+                ItemStats = item.Stats.Select(s => new ItemStat(s.Stat, s.Amount)).ToList(),
+                Enchant = new Enchant { Id = item.TooltipParams.EnchantId },
             };
+        }
+
+        public static void UpdateEnchant(this ItemModel model, IEnumerable<Enchant> enchants)
+        {
+            if (model == null || model.Enchant == null)
+                return;
+            var enchant = enchants.FirstOrDefault(o => o.Id == model.Enchant.Id);
+
+            if (enchant == null)
+                return;
+
+            model.Enchant.Bonus = enchant.Bonus;
+        }
+
+        public static void UpdateEnchants(this EquipmentModel model)
+        {
+            var client = new BattleNetApiClient();
+            var enchants = client.GetEnchants();
+
+            var enumerable = enchants as Enchant[] ?? enchants.ToArray();
+            model.Back.UpdateEnchant(enumerable);
+            model.Chest.UpdateEnchant(enumerable);
+            model.Feet.UpdateEnchant(enumerable);
+            model.Finger1.UpdateEnchant(enumerable);
+            model.Finger2.UpdateEnchant(enumerable);
+            model.Hands.UpdateEnchant(enumerable);
+            model.Head.UpdateEnchant(enumerable);
+            model.Legs.UpdateEnchant(enumerable);
+            model.MainHand.UpdateEnchant(enumerable);
+            model.Neck.UpdateEnchant(enumerable);
+            model.OffHand.UpdateEnchant(enumerable);
+            model.Shoulder.UpdateEnchant(enumerable);
+            model.Trinket1.UpdateEnchant(enumerable);
+            model.Trinket2.UpdateEnchant(enumerable);
+            model.Waist.UpdateEnchant(enumerable);
+            model.Wrist.UpdateEnchant(enumerable);
         }
 
         public static EquipmentModel ToEquipmentModel(this BattleNetItems items)
         {
-            return new EquipmentModel()
+            var model = new EquipmentModel()
             {
                 AverageEquippedItemLevel = items.AverageItemLevelEquipped,
                 AverageItemLevel = items.AverageItemLevel,
@@ -180,6 +220,62 @@ namespace BattleNetApi
                 Waist = items.Waist.ToItemModel(),
                 Wrist = items.Wrist.ToItemModel(),
             };
+
+            model.UpdateEnchants();
+
+            return model;
+        }
+
+        public static Stat GetPrimaryStat(this BattleNetCharacter character)
+        {
+            switch (character.Class)
+            {
+                //strength
+                case (int)Class.DeathKnight:
+                case (int)Class.Warrior:
+                    return Stat.Strength;
+                //strength or int
+                case (int)Class.Paladin:
+                    switch (character.Specialization.First(s => s.Selected).Spec.Name)
+                    {
+                        case "Holy":
+                            return Stat.Intellect;
+                    }
+                    return Stat.Strength;
+                //Agi
+                case (int)Class.Hunter:
+                case (int)Class.Rogue:
+                    return Stat.Agility;
+                //Agi or Int
+                case (int)Class.Shaman:
+                    switch (character.Specialization.First(s => s.Selected).Spec.Name)
+                    {
+                        case "Enhancement":
+                            return Stat.Agility;
+                    }
+                    return Stat.Intellect;
+                case (int)Class.Druid:
+                switch (character.Specialization.First(s => s.Selected).Spec.Name)
+                    {
+                        case "Restoration":
+                        case "Balance":
+                            return Stat.Intellect;
+                    }
+                    return Stat.Agility;
+                case (int)Class.Monk:
+                    switch (character.Specialization.First(s => s.Selected).Spec.Name)
+                    {
+                        case "Mistweaver":
+                            return Stat.Intellect;
+                    }
+                    return Stat.Agility;
+                //Int
+                case (int)Class.Mage:
+                case (int)Class.Priest:
+                case (int)Class.Warlock:
+                default:
+                    return Stat.Intellect;
+            }
         }
 
         public static PlayerModel ToPlayerModel(this BattleNetCharacter character)

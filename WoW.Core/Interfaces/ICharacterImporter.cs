@@ -1,4 +1,6 @@
-﻿using WoW.Core.Models;
+﻿using System.Collections.Generic;
+using WoW.Core.Models;
+using WoW.Core.Objects;
 
 namespace WoW.Core.Interfaces
 {
@@ -6,5 +8,6 @@ namespace WoW.Core.Interfaces
     {
         PlayerModel GetCharacterProfile(string name, string server);
         PlayerModel GetCharacterProfileAndItems(string name, string server);
+        IEnumerable<Enchant> GetEnchants();
     }
 }

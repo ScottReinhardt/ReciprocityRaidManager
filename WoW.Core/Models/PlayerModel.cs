@@ -10,7 +10,8 @@ namespace WoW.Core.Models
         {
             Equipment = new EquipmentModel();
         }
-
+        [Key]
+        public int PlayerId { get; set; }
         //Character Information
         public string Name { get; set; }
         public string Realm { get; set; }
@@ -21,10 +22,12 @@ namespace WoW.Core.Models
 
         public Race Race { get; set; }
 
+        public Stat PrimaryStat { get; set; }
+
         [Display(Name = "Logs Profile Link")]
         public string LogsProfileLink { get; set; }
 
-        public EquipmentModel Equipment { get; set; }
+        public virtual EquipmentModel Equipment { get; set; }
 
         //Raid Comp
         public Role Role { get; set; }

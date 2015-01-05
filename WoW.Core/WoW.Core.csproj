@@ -46,16 +46,20 @@
     <Compile Include="Enums\ArmorType.cs" />
     <Compile Include="Enums\Buffs.cs" />
     <Compile Include="Enums\Class.cs" />
+    <Compile Include="Interfaces\IPersistanceProvider.cs" />
+    <Compile Include="Models\RaidModel.cs" />
+    <Compile Include="Objects\Enchant.cs" />
     <Compile Include="Enums\ItemQuality.cs" />
     <Compile Include="Enums\Races.cs" />
     <Compile Include="Enums\Role.cs" />
-    <Compile Include="Enums\Stats.cs" />
+    <Compile Include="Enums\Stat.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Interfaces\ICharacterImporter.cs" />
     <Compile Include="Interfaces\ILogApi.cs" />
     <Compile Include="Models\EquipmentModel.cs" />
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\PlayerModel.cs" />
+    <Compile Include="Objects\ItemStat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

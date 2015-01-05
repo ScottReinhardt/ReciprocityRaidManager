@@ -1,7 +1,18 @@
 ﻿@model WoW.Core.Models.ItemModel
-           
-<div class="large-12 medium-12 columns">
-    <div class="panel">
-        <h3>@Model.Name</h3>
+
+@if (Model.ItemStats != null)
+{
+    <div class="large-4 medium-4 columns">
+        <div class="panel">
+            <h3>@Model.Name</h3>
+            @foreach (var stat in Model.ItemStats)
+            {
+                @Html.DisplayFor(m => stat)
+            }
+            @if (Model.Enchant.Bonus != null)
+            {
+                <p class="no-margin">Enchant: @Html.DisplayFor(m => m.Enchant.Bonus)</p>
+            }
+        </div>
     </div>
-</div>
+}
