@@ -40,7 +40,7 @@ namespace WoW.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var model = new AddRaiderModel()
+            var model = new RaidSummaryModel()
             {
                 Raiders = raid.Raiders ?? new List<PlayerModel>(),
             };

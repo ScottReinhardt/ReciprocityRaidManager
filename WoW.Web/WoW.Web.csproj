@@ -146,6 +146,7 @@
     </Compile>
     <Compile Include="Models\AddRaiderModel.cs" />
     <Compile Include="Models\CreateRaidModel.cs" />
+    <Compile Include="Models\RaidSummaryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +239,7 @@
     <Content Include="Views\Shared\DisplayTemplates\ItemStat.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Raid\Index.cshtml" />
+    <Content Include="Views\Raid\Roster.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

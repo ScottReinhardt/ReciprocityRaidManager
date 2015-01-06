@@ -5,9 +5,9 @@ namespace WoW.Models
 {
     public class AddRaiderModel
     {
-        public IEnumerable<PlayerModel> Raiders { get; set; }
-
         public PlayerModel NewRaider { get; set; }
+
+        public IEnumerable<PlayerModel> Raiders { get; set; }
 
         public AddRaiderModel()
         {
