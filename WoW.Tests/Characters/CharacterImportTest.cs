@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using BattleNetApi;
+﻿using BattleNetApi;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using WoW.Core.Enums;
 

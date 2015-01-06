@@ -21,6 +21,11 @@ namespace WoW.Core.Objects
             Stat = (Stat) stat;
             Amount = amount;
         }
+
+        public ItemStat()
+        {
+            
+        }
         [Key]
         public int Id { get; set; }
         public Stat Stat { get; set; }

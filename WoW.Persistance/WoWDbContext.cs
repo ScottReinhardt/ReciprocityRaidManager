@@ -9,5 +9,6 @@ namespace WoW.Persistance
     {
         public DbSet<RaidModel> RaidGroup { get; set; }
         public DbSet<PlayerModel> Player { get; set; }
+        public DbSet<EquipmentModel> Equipment { get; set; }
     }
 }

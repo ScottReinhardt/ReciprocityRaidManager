@@ -46,7 +46,7 @@ namespace BattleNetApi
         
         public PlayerModel GetCharacterProfile(string name, string server)
         {
-            var apiPath = string.Format("character/{0}/{1}?fields=items&locale=en_US", server, name);
+            var apiPath = string.Format("character/{0}/{1}?fields=talents&locale=en_US", server, name);
         
             var str = _client.DownloadString(GetApiString(apiPath));
         

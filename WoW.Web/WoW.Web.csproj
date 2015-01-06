@@ -144,9 +144,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddRaiderModel.cs" />
-    <Compile Include="Models\CreateRaidModel.cs" />
-    <Compile Include="Models\RaidSummaryModel.cs" />
+    <Compile Include="Models\Raid\AddRaiderModel.cs" />
+    <Compile Include="Models\Home\CreateRaidModel.cs" />
+    <Compile Include="Models\Raid\RaidSummaryModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -230,7 +230,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Raid\RaiderDetails.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Shared\DisplayTemplates\PlayerModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
@@ -240,6 +239,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Raid\Index.cshtml" />
     <Content Include="Views\Raid\Roster.cshtml" />
+    <Content Include="Views\Raid\_Layout.cshtml" />
+    <Content Include="Views\Raid\_ViewStart.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

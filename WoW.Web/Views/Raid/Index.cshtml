@@ -1,17 +1,26 @@
-﻿@model WoW.Models.RaidSummaryModel
-
-
-
+﻿@model WoW.Models.Raid.RaidSummaryModel
 @foreach (var raider in Model.Raiders)
 {
-    <div class="panel">
-        <div class="row">
-            <div class="large-3 medium-3 columns">
-                <h4>@Html.LabelFor(m => raider.Name) @Html.DisplayFor(m => raider.Name)</h4>
-            </div>
-            <div class="large-3 medium-3 columns">
-                <h4>@Html.LabelFor(m => raider.Realm) @Html.DisplayFor(m => raider.Realm)</h4>
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="panel">
+                <div class="accordion">
+                    @Html.DisplayFor(m => raider)
+                </div>
             </div>
         </div>
     </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('.accordion').accordion({
+                collapsible: true,
+                active: false,
+                heightStyle: 'panel'
+            });
+        });
+    </script>
 }

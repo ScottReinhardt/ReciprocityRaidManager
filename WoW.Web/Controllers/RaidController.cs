@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WoW.Core.Interfaces;
 using WoW.Core.Models;
 using WoW.Core.Objects;
 using WoW.Models;
+using WoW.Models.Raid;
 
 namespace WoW.Controllers
 {
@@ -14,6 +13,14 @@ namespace WoW.Controllers
     {
         private readonly ICharacterImporter _importer;
         private readonly IWoWPersistanceProvider _dataProvider;
+
+        private int RaidId
+        {
+            get { return (int) Session["raidId"]; }
+            set { Session["raidId"] = value;  }
+        }
+
+        private string RaidName { get { return (string) Session["raidName"];  } }
 
         private IEnumerable<Enchant> _enchants;
 
@@ -24,16 +31,9 @@ namespace WoW.Controllers
             _dataProvider = dataProvider;
         }
 
-        public ActionResult RaiderDetails(int raidId)
+        public ActionResult Index()
         {
-            var raid = _dataProvider.GetRaiderDetails(raidId);
-            
-            return View(raid);
-        }
-
-        public ActionResult Index(int raidId)
-        {
-            var raid = _dataProvider.GetRaiderDetails(raidId);
+            var raid = _dataProvider.GetRaiderDetails(RaidId);
 
             if (raid == null)
             {
@@ -47,10 +47,40 @@ namespace WoW.Controllers
             return View(model);
         }
 
-        public ActionResult NewRaider(PlayerModel raider)
+        public ActionResult Roster()
         {
-            
-            return new EmptyResult();
+            var raid = _dataProvider.GetRaiderDetails(RaidId);
+            return View(new AddRaiderModel()
+            {
+                Raiders = raid.Raiders ?? new List<PlayerModel>()
+            });
+        }
+
+        [HttpPost]
+        public ActionResult NewRaider(AddRaiderModel model)
+        {
+            try
+            {
+                var player = _importer.GetCharacterProfileAndItems(model.NewRaider.Name, model.NewRaider.Realm);
+                player.LogsProfileLink = string.Format(
+                    "https://www.warcraftlogs.com/rankings/character_name/{0}/{1}/us",
+                    model.NewRaider.Name, model.NewRaider.Realm);
+                player.RaidId = RaidId;
+                if (_dataProvider.AddRaider(player))
+                {
+                    model.Raiders.Add(player);
+                    model.NewRaider = new PlayerModel();
+                }
+                else
+                {
+                    throw new Exception("Changes not saved successfully");
+                }
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("PlayerNotFound", "Player not found or internal server error.  Please check server and name and try again.");
+            }
+            return RedirectToAction("Roster");
         }
     }
 }

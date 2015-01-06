@@ -9,6 +9,6 @@ namespace WoW.Core.Models
         public int RaidId { get; set; }
         public string RaidName { get; set; }
         public string Server { get; set; }
-        public virtual IEnumerable<PlayerModel> Raiders { get; set; }
+        public virtual List<PlayerModel> Raiders { get; set; }
     }
 }

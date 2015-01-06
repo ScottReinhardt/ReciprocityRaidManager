@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WoW.Core.Interfaces;
 using WoW.Core.Models;
 
@@ -34,6 +31,23 @@ namespace WoW.Persistance
             _dbContext.SaveChanges();
 
             return GetRaidByName(name, server);
+        }
+
+        public bool AddRaider(PlayerModel raider)
+        {
+            try
+            {
+                if (_dbContext.Player.FirstOrDefault(r => r.Name == raider.Name && raider.Realm == r.Realm) != null)
+                    return false;
+
+                _dbContext.Player.Add(raider);
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public RaidModel GetRaiderDetails(int raidId)

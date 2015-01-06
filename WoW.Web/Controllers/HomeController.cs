@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Web.Routing;
+﻿using System.Web.Mvc;
 using WoW.Core.Interfaces;
-using WoW.Core.Objects;
-using WoW.Models;
+using WoW.Models.Home;
 
 namespace WoW.Controllers
 {
-
     
     public class HomeController : Controller
     {
@@ -32,10 +28,16 @@ namespace WoW.Controllers
 
             if (!_dataProvider.RaidNameAvailable(model.GroupName, model.ServerName))
             {
-                return RedirectToAction("Index", "Raid", new {raidId = _dataProvider.GetRaidByName(model.GroupName, model.ServerName)});
+                var raidId = _dataProvider.GetRaidByName(model.GroupName, model.ServerName);
+                Session["raidId"] = raidId;
+                Session["raidName"] = model.GroupName;
+                return RedirectToAction("Index", "Raid");
             }
 
             var id =_dataProvider.CreateRaidGroup(model.GroupName, model.ServerName);
+
+            Session["raidId"] = id;
+            Session["raidName"] = model.GroupName;
             return RedirectToAction("Index", "Raid", new {raidId = id});
         }
     }

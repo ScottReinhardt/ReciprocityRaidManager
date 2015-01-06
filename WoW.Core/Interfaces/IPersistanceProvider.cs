@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using WoW.Core.Models;
+﻿using WoW.Core.Models;
 
 namespace WoW.Core.Interfaces
 {
@@ -8,6 +7,7 @@ namespace WoW.Core.Interfaces
         bool RaidNameAvailable(string name, string server);
         int GetRaidByName(string name, string server);
         int CreateRaidGroup(string name, string server);
+        bool AddRaider(PlayerModel raider);
         RaidModel GetRaiderDetails(int raidId);
     }
 }
