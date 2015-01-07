@@ -14,6 +14,6 @@ namespace WoW.Core.Models
         public ItemQuality Quality { get; set; }
         public int ItemLevel { get; set; }
         public virtual List<ItemStat> ItemStats { get; set; }
-        //public virtual Enchant Enchant { get; set; }
+        public virtual Enchant Enchant { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace WoW.Core.Models
         public string Specialization { get; set; }
         public ArmorType ArmorType { get; set; }
 
-        public List<Buffs> BuffsBrought { get; set; }
+        public virtual List<Buffs> BuffsBrought { get; set; }
 
         //Raid Loot
         public int EffortPoints { get; set; }

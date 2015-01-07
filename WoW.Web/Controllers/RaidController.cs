@@ -79,6 +79,7 @@ namespace WoW.Controllers
             catch (Exception e)
             {
                 ModelState.AddModelError("PlayerNotFound", "Player not found or internal server error.  Please check server and name and try again.");
+                return View("Roster", model);
             }
             return RedirectToAction("Roster");
         }

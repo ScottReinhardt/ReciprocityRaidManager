@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using WoW.Core;
+using WoW.Core.Enums;
 using WoW.Core.Interfaces;
 using WoW.Core.Models;
 
@@ -55,6 +58,15 @@ namespace WoW.Persistance
             try
             {
                 var raid = _dbContext.RaidGroup.FirstOrDefault(r => r.RaidId == raidId);
+
+                if (raid == null || raid.Raiders == null)
+                    return raid;
+
+                foreach (var raider in raid.Raiders.Where(raider => raider != null))
+                {
+                    raider.BuffsBrought = raider.GetBuffsBrought();
+                }
+
                 return raid;
             }
             catch (Exception)

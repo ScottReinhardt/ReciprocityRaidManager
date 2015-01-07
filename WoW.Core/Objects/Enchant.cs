@@ -1,8 +1,11 @@
-﻿namespace WoW.Core.Objects
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WoW.Core.Objects
 {
     public class Enchant
     {
-        public string Bonus;
-        public int Id;
+        public string Bonus { get; set; }
+        [Key]
+        public int Id { get; set; }
     }
 }

@@ -153,24 +153,25 @@ namespace BattleNetApi
             
             return new ItemModel()
             {
+                Id = item.Id,
                 ItemLevel = item.ItemLevel,
                 Name = item.Name,
                 Quality = (ItemQuality)item.Quality,
                 ItemStats = item.Stats.Select(s => new ItemStat(s.Stat, s.Amount)).ToList(),
-                //Enchant = new Enchant { Id = item.TooltipParams.EnchantId },
+                Enchant = new Enchant { Id = item.TooltipParams.EnchantId },
             };
         }
 
         public static void UpdateEnchant(this ItemModel model, IEnumerable<Enchant> enchants)
         {
-            //if (model == null || model.Enchant == null)
-            //    return;
-            //var enchant = enchants.FirstOrDefault(o => o.Id == model.Enchant.Id);
-            //
-            //if (enchant == null)
-            //    return;
-            //
-            //model.Enchant.Bonus = enchant.Bonus;
+            if (model == null || model.Enchant == null)
+                return;
+            var enchant = enchants.FirstOrDefault(o => o.Id == model.Enchant.Id);
+            
+            if (enchant == null)
+                return;
+            
+            model.Enchant.Bonus = enchant.Bonus;
         }
 
         public static void UpdateEnchants(this EquipmentModel model)
@@ -179,22 +180,22 @@ namespace BattleNetApi
             var enchants = client.GetEnchants();
 
             var enumerable = enchants as Enchant[] ?? enchants.ToArray();
-            //model.Back.UpdateEnchant(enumerable);
-            //model.Chest.UpdateEnchant(enumerable);
-            //model.Feet.UpdateEnchant(enumerable);
-            //model.Finger1.UpdateEnchant(enumerable);
-            //model.Finger2.UpdateEnchant(enumerable);
-            //model.Hands.UpdateEnchant(enumerable);
-            //model.Head.UpdateEnchant(enumerable);
-            //model.Legs.UpdateEnchant(enumerable);
-            //model.MainHand.UpdateEnchant(enumerable);
-            //model.Neck.UpdateEnchant(enumerable);
-            //model.OffHand.UpdateEnchant(enumerable);
-            //model.Shoulder.UpdateEnchant(enumerable);
-            //model.Trinket1.UpdateEnchant(enumerable);
-            //model.Trinket2.UpdateEnchant(enumerable);
-            //model.Waist.UpdateEnchant(enumerable);
-            //model.Wrist.UpdateEnchant(enumerable);
+            model.Back.UpdateEnchant(enumerable);
+            model.Chest.UpdateEnchant(enumerable);
+            model.Feet.UpdateEnchant(enumerable);
+            model.Finger1.UpdateEnchant(enumerable);
+            model.Finger2.UpdateEnchant(enumerable);
+            model.Hands.UpdateEnchant(enumerable);
+            model.Head.UpdateEnchant(enumerable);
+            model.Legs.UpdateEnchant(enumerable);
+            model.MainHand.UpdateEnchant(enumerable);
+            model.Neck.UpdateEnchant(enumerable);
+            model.OffHand.UpdateEnchant(enumerable);
+            model.Shoulder.UpdateEnchant(enumerable);
+            model.Trinket1.UpdateEnchant(enumerable);
+            model.Trinket2.UpdateEnchant(enumerable);
+            model.Waist.UpdateEnchant(enumerable);
+            model.Wrist.UpdateEnchant(enumerable);
         }
 
         public static EquipmentModel ToEquipmentModel(this BattleNetItems items)
