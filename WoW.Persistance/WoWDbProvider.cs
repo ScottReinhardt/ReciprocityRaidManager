@@ -65,6 +65,7 @@ namespace WoW.Persistance
                 foreach (var raider in raid.Raiders.Where(raider => raider != null))
                 {
                     raider.BuffsBrought = raider.GetBuffsBrought();
+                    raider.UpdateValidationErrors();
                 }
 
                 return raid;

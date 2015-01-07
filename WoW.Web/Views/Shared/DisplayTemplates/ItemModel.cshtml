@@ -3,7 +3,7 @@
 @if (Model.ItemStats != null)
 {
     <div class="large-4 medium-4 columns">
-        <div class="panel">
+        <div class="panel @(Model.ValidationError != null ? "error-panel" : "")">
             <h3>@Model.Name</h3>
             @foreach (var stat in Model.ItemStats)
             {
@@ -12,6 +12,10 @@
             @if (Model.Enchant != null && Model.Enchant.Bonus != null)
             {
                 <p class="no-margin">Enchant: @Html.DisplayFor(m => m.Enchant.Bonus)</p>
+            }
+            @if (Model.ValidationError != null)
+            {
+                <p class="error">Error!  @Model.ValidationError</p>
             }
         </div>
     </div>

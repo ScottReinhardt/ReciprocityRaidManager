@@ -21,23 +21,24 @@
             @Html.DisplayFor(m => m.Back)
             @Html.DisplayFor(m => m.Wrist)
         </div>
-        
+
         <div class="row">
             @Html.DisplayFor(m => m.Hands)
             @Html.DisplayFor(m => m.Waist)
             @Html.DisplayFor(m => m.Feet)
         </div>
-        
+
         <div class="row">
             @Html.DisplayFor(m => m.Neck)
             @Html.DisplayFor(m => m.Finger1)
             @Html.DisplayFor(m => m.Finger2)
         </div>
-        
-        <div class="row">
-            @Html.DisplayFor(m => m.OffHand)
-        </div>
-
+        @if (Model.OffHand.Name != null)
+        {
+            <div class="row">
+                @Html.DisplayFor(m => m.OffHand)
+            </div>
+        }
     </div>
 
 </div>

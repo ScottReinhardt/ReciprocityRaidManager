@@ -2,6 +2,14 @@
     margin: 0;
 }
 
-.ui-accordion-header{
-    outline:none
+.ui-accordion-header {
+    outline: none;
+}
+
+.error-panel {
+    border-color: red !important;
+}
+
+.error {
+    color: red !important;
 }

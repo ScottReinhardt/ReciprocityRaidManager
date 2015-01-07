@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WoW.Core.Models
 {
@@ -43,5 +44,8 @@ namespace WoW.Core.Models
         public virtual ItemModel MainHand { get; set; }
         
         public virtual ItemModel OffHand { get; set; }
+
+        [NotMapped]
+        public int ValidationErrorsCount { get; set; }
     }
 }

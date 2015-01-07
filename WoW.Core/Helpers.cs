@@ -156,5 +156,25 @@ namespace WoW.Core
             }
             return buffs;
         }
+
+        public static int UpdateValidationErrors(this ItemModel model)
+        {
+            if (model.Enchant != null)
+            {
+                return 0;
+            }
+            
+            model.ValidationError = "Missing enchant";
+            return 1;
+        }
+
+        public static void UpdateValidationErrors(this PlayerModel model)
+        {
+            model.Equipment.ValidationErrorsCount = model.Equipment.Neck.UpdateValidationErrors();
+            model.Equipment.ValidationErrorsCount = model.Equipment.Back.UpdateValidationErrors();
+            model.Equipment.ValidationErrorsCount = model.Equipment.Finger1.UpdateValidationErrors();
+            model.Equipment.ValidationErrorsCount = model.Equipment.Finger2.UpdateValidationErrors();
+            model.Equipment.ValidationErrorsCount = model.Equipment.MainHand.UpdateValidationErrors();
+        }
     }
 }

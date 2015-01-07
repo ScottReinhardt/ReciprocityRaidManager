@@ -19,6 +19,7 @@
     <body>
         <h1>Welcome to @Session["raidName"]</h1>
         <p>@Html.ActionLink("Player Details", "Index")</p>
+        <p>@Html.ActionLink("Raid Comp Details", "RaidComp")</p>
         <p>@Html.ActionLink("Manage Roster", "Roster")</p>
 
         @RenderBody()
