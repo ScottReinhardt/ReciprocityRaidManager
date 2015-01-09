@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attempt\Attempt.cs" />
     <Compile Include="Enums\ArmorType.cs" />
     <Compile Include="Enums\Buffs.cs" />
     <Compile Include="Enums\Class.cs" />

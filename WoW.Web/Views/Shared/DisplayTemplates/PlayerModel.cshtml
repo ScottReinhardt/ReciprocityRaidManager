@@ -1,7 +1,7 @@
 ﻿@model WoW.Core.Models.PlayerModel
-<h3>@Html.DisplayFor(m => m.Name), @Html.DisplayFor(m => m.Specialization) @Html.DisplayFor(m => m.Class)</h3>
+<div>
+    <h3>@Html.DisplayFor(m => m.Name), @Html.DisplayFor(m => m.Specialization) @Html.DisplayFor(m => m.Class)</h3>
 
-<div class="panel">
     <div class="row">
         <div class="large-3 medium-3 columns">
             <h4>@Html.LabelFor(m => m.Equipment.AverageItemLevel) @Html.DisplayFor(m => m.Equipment.AverageItemLevel)</h4>
@@ -16,13 +16,8 @@
             <h4>@Html.LabelFor(m => m.LogsProfileLink)<a href="@Html.DisplayFor(m => m.LogsProfileLink)" target="_blank">Click Here</a></h4>
         </div>
     </div>
-    <div class="row">
-        @Html.DisplayFor(m => m.Equipment)
+
+    <div class="panel replace-me">
+        <h4>Click here for details</h4>
     </div>
-    @if (Model.Equipment.ValidationErrorsCount > 0)
-    {
-        <div class="alert-box info">
-            <span>You have @Model.Equipment.ValidationErrorsCount errors with your gear that need to get fixed!</span>
-        </div>
-    }
 </div>

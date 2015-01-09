@@ -31,14 +31,14 @@ namespace WoW.Controllers
                 var raidId = _dataProvider.GetRaidByName(model.GroupName, model.ServerName);
                 Session["raidId"] = raidId;
                 Session["raidName"] = model.GroupName;
-                return RedirectToAction("Index", "Raid");
+                return RedirectToAction("Roster", "Raid");
             }
 
             var id =_dataProvider.CreateRaidGroup(model.GroupName, model.ServerName);
 
             Session["raidId"] = id;
             Session["raidName"] = model.GroupName;
-            return RedirectToAction("Index", "Raid", new {raidId = id});
+            return RedirectToAction("Roster", "Raid", new {raidId = id});
         }
     }
 }

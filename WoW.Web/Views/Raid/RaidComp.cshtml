@@ -5,6 +5,16 @@
         <h3>Buffs</h3>
         <div class="large-12 medium-12 columns">
             <p>You are currently missing @Model.BuffsNotBrought.Count buffs.  You have @Model.Hunters hunters to cover these missing buffs.</p>
+            <div class="large-12 medium-12 columns">
+                @foreach (var raidBuff in Model.RaidBuffs)
+                {
+                    <div class="large-3 medium-3 columns"><p><span style="color:green">&#x2714;</span> @Html.DisplayFor(m => raidBuff)</p></div>
+                }
+                @foreach (var raidBuff in Model.BuffsNotBrought)
+                {
+                    <div class="large-3 medium-3 columns"><p><span style="color:red">&#x2718;</span>@Html.DisplayFor(m => raidBuff)</p></div>
+                }
+            </div>
         </div>
     </div>
 </div>

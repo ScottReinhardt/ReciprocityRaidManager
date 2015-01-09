@@ -4,7 +4,7 @@
     <div class="row">
         <div class="large-12 columns">
             <div class="panel">
-                <div class="accordion">
+                <div class="accordion" data-id="@Html.DisplayFor(m => raider.PlayerId)">
                     @Html.DisplayFor(m => raider)
                 </div>
             </div>
@@ -15,12 +15,26 @@
 @section Scripts
 {
     <script type="text/javascript">
-        $(function () {
-            $('.accordion').accordion({
-                collapsible: true,
-                active: false,
-                heightStyle: 'panel'
+        $(function() {
+            $('.accordion').click(function () {
+                $.ajax({
+                    url: "/Raid/LoadRaider",
+                    context: this,
+                    type: "POST",
+                    dataType: "html",
+                    data: { id: $(this).attr('data-id') },
+                    success: function (data) {
+                        $(this).unbind();
+                        $(this).find('.panel.replace-me').html(data);
+                        var accordions = $(this).add($(this).find('.accordion'));
+                        accordions.accordion({
+                            collapsible: true,
+                            heightStyle: 'panel'
+                        });
+                    }
+                });
             });
+
         });
     </script>
 }

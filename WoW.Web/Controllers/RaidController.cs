@@ -8,6 +8,7 @@ using WoW.Core.Models;
 using WoW.Core.Objects;
 using WoW.Models;
 using WoW.Models.Raid;
+using WoW.Sessoin;
 
 namespace WoW.Controllers
 {
@@ -15,14 +16,6 @@ namespace WoW.Controllers
     {
         private readonly ICharacterImporter _importer;
         private readonly IWoWPersistanceProvider _dataProvider;
-
-        private int RaidId
-        {
-            get { return Session["raidId"] == null ? 0 : (int) Session["raidId"]; }
-            set { Session["raidId"] = value;  }
-        }
-
-        private string RaidName { get { return (string) Session["raidName"];  } }
 
         public RaidController(ICharacterImporter importer, IWoWPersistanceProvider dataProvider)
         {
@@ -32,32 +25,54 @@ namespace WoW.Controllers
 
         public ActionResult Index()
         {
-            if (RaidId == 0)
+            var attempt = _dataProvider.LoadRaidModel();
+
+            if (!attempt)
             {
                 return RedirectToAction("Index", "Home");
             }
-
-            var raid = _dataProvider.GetRaiderDetails(RaidId);
-
-            if (raid == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             var model = new RaidSummaryModel()
             {
-                Raiders = raid.Raiders ?? new List<PlayerModel>(),
+                Raiders = attempt.Result.Raiders ?? new List<PlayerModel>(),
             };
             return View(model);
         }
 
         public ActionResult Roster()
         {
-            var raid = _dataProvider.GetRaiderDetails(RaidId);
+            var attempt = _dataProvider.LoadRaidModel();
+
+            if (!attempt)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View(new AddRaiderModel()
             {
-                Raiders = raid.Raiders ?? new List<PlayerModel>()
+                Raiders = attempt.Result.Raiders ?? new List<PlayerModel>(),
             });
+        }
+
+        [HttpPost]
+        public ActionResult LoadRaider(int id)
+        {
+            try
+            {
+                var attempt = _dataProvider.LoadRaidModel();
+                if (!attempt)
+                    return new HttpNotFoundResult();
+
+                var player = attempt.Result.Raiders.FirstOrDefault(p => p.PlayerId == id);
+
+                if(player == null)
+                    return new HttpNotFoundResult();
+                
+                return PartialView("Partials/PlayerPartial", player);
+            }
+            catch (Exception e)
+            {
+                return new HttpNotFoundResult();
+            }
         }
 
         [HttpPost]
@@ -69,10 +84,11 @@ namespace WoW.Controllers
                 player.LogsProfileLink = string.Format(
                     "https://www.warcraftlogs.com/rankings/character_name/{0}/{1}/us",
                     model.NewRaider.Name, model.NewRaider.Realm);
-                player.RaidId = RaidId;
+                player.RaidId = RaidSession.RaidId;
                 if (_dataProvider.AddRaider(player))
                 {
                     model.Raiders.Add(player);
+                    RaidSession.Raid.Raiders.Add(player);
                     model.NewRaider = new PlayerModel();
                 }
                 else
@@ -90,21 +106,16 @@ namespace WoW.Controllers
 
         public ActionResult RaidComp()
         {
-            if (RaidId == 0)
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            var attempt = _dataProvider.LoadRaidModel();
 
-            var raid = _dataProvider.GetRaiderDetails(RaidId);
-
-            if (raid == null)
+            if (!attempt)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             var model = new RaidCompModel()
             {
-                Raiders = raid.Raiders ?? new List<PlayerModel>(),
+                Raiders = attempt.Result.Raiders ?? new List<PlayerModel>(),
             };
             model.ClothWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Cloth);
             model.LeatherWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Leather);
