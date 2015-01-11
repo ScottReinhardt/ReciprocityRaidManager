@@ -1,0 +1,11 @@
+﻿@model WoW.Core.Models.PlayerModel
+
+<div class="row">
+    @Html.DisplayFor(m => m.Equipment)
+</div>
+@if (Model.Equipment.ValidationErrorsCount > 0)
+{
+    <div class="alert-box info">
+        <span>You have @Model.Equipment.ValidationErrorsCount errors with your gear that need to get fixed!</span>
+    </div>
+}
