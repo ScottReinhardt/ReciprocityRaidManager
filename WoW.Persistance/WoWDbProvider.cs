@@ -20,12 +20,16 @@ namespace WoW.Persistance
 
         public bool RaidNameAvailable(string name, string server)
         {
-            return _dbContext.RaidGroup.None(r => r.RaidName == name);
+            //must use string compare, string.Equals errors
+            return _dbContext.RaidGroup.None(r => string.Compare(r.RaidName, name, StringComparison.OrdinalIgnoreCase) == 0 &&
+                string.Compare(r.Server, server, StringComparison.OrdinalIgnoreCase) == 0);
         }
 
         public int GetRaidByName(string name, string server)
         {
-            var raid = _dbContext.RaidGroup.FirstOrDefault(g => g.RaidName == name && g.Server == server);
+            //must use string compare, string.Equals errors
+            var raid = _dbContext.RaidGroup.FirstOrDefault(r => string.Compare(r.RaidName, name, StringComparison.OrdinalIgnoreCase) == 0 &&
+                string.Compare(r.Server, server, StringComparison.OrdinalIgnoreCase) == 0);
             return raid == null ? 0 : raid.RaidId;
         }
 
