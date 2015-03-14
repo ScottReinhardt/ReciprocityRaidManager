@@ -16,25 +16,11 @@
 {
     <script type="text/javascript">
         $(function() {
-            $('.accordion').click(function () {
-                $.ajax({
-                    url: "/Raid/LoadRaider",
-                    context: this,
-                    type: "POST",
-                    dataType: "html",
-                    data: { id: $(this).attr('data-id') },
-                    success: function (data) {
-                        $(this).unbind();
-                        $(this).find('.panel.replace-me').html(data);
-                        var accordions = $(this).add($(this).find('.accordion'));
-                        accordions.accordion({
-                            collapsible: true,
-                            heightStyle: 'panel'
-                        });
-                    }
-                });
+            $('.accordion').accordion({
+                collapsible: true,
+                active: false,
+                heightStyle: 'panel'
             });
-
         });
     </script>
 }

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30324.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoW.Web", "WoW.Web\WoW.Web.csproj", "{0C8B0E43-353A-4E56-BB1D-1121DB273FAB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoW.Tests", "WoW.Tests\WoW.Tests.csproj", "{1BF4A2D2-225A-472E-AB20-4343606C2B64}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BattleNetApi", "BattleNetApi\BattleNetApi.csproj", "{8EF9A7FC-8840-4DAB-8F09-F5C5462CF6E9}"
 EndProject
@@ -14,6 +12,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WarcraftLogs", "WarcraftLogs\WarcraftLogs.csproj", "{4E70723B-2BF0-4442-B50A-261DB0AE8B85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoW.Persistance", "WoW.Persistance\WoW.Persistance.csproj", "{CF778226-88FC-4897-B152-2F0E31F54961}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5C4C377C-B89D-47B9-917C-1B7627B3D823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoW.Tests", "WoW.Tests\WoW.Tests.csproj", "{3708F755-9967-402C-B796-76081D6DEF41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,11 +27,6 @@ Global
 		{0C8B0E43-353A-4E56-BB1D-1121DB273FAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C8B0E43-353A-4E56-BB1D-1121DB273FAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C8B0E43-353A-4E56-BB1D-1121DB273FAB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BF4A2D2-225A-472E-AB20-4343606C2B64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BF4A2D2-225A-472E-AB20-4343606C2B64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BF4A2D2-225A-472E-AB20-4343606C2B64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BF4A2D2-225A-472E-AB20-4343606C2B64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BF4A2D2-225A-472E-AB20-4343606C2B64}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{8EF9A7FC-8840-4DAB-8F09-F5C5462CF6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8EF9A7FC-8840-4DAB-8F09-F5C5462CF6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EF9A7FC-8840-4DAB-8F09-F5C5462CF6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,6 +43,10 @@ Global
 		{CF778226-88FC-4897-B152-2F0E31F54961}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF778226-88FC-4897-B152-2F0E31F54961}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF778226-88FC-4897-B152-2F0E31F54961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3708F755-9967-402C-B796-76081D6DEF41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3708F755-9967-402C-B796-76081D6DEF41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3708F755-9967-402C-B796-76081D6DEF41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3708F755-9967-402C-B796-76081D6DEF41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

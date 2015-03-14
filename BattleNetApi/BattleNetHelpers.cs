@@ -200,6 +200,11 @@ namespace BattleNetApi
 
         public static EquipmentModel ToEquipmentModel(this BattleNetItems items)
         {
+            if (items == null)
+            {
+                return new EquipmentModel();
+            }
+
             var model = new EquipmentModel()
             {
                 AverageEquippedItemLevel = items.AverageItemLevelEquipped,

@@ -247,7 +247,6 @@
     <Content Include="Views\Raid\_Layout.cshtml" />
     <Content Include="Views\Raid\_ViewStart.cshtml" />
     <Content Include="Views\Raid\RaidComp.cshtml" />
-    <Content Include="Views\Raid\Partials\PlayerPartial.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

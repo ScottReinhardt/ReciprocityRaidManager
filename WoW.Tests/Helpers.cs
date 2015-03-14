@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 
 namespace WoW.Tests
@@ -12,8 +12,8 @@ namespace WoW.Tests
             {
                 try
                 {
-                    var e = Enum.Parse(typeof (T), item.Key.Replace(" ", string.Empty));
-                    success &= (int) e == item.Value;
+                    var e = Enum.Parse(typeof(T), item.Key.Replace(" ", string.Empty));
+                    success &= (int)e == item.Value;
                 }
                 catch (Exception exception)
                 {

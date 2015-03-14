@@ -13,6 +13,12 @@
             @Html.DisplayFor(m => m.Chest)
             @Html.DisplayFor(m => m.Legs)
         </div>
+        @if (Model.OffHand.Name != null)
+        {
+            <div class="row">
+                @Html.DisplayFor(m => m.OffHand)
+            </div>
+        }
     </div>
     <h3>Minor Items</h3>
     <div class="panel" style="display: none;">
@@ -33,12 +39,6 @@
             @Html.DisplayFor(m => m.Finger1)
             @Html.DisplayFor(m => m.Finger2)
         </div>
-        @if (Model.OffHand.Name != null)
-        {
-            <div class="row">
-                @Html.DisplayFor(m => m.OffHand)
-            </div>
-        }
     </div>
 
 </div>

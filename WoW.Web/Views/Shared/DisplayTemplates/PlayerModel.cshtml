@@ -17,7 +17,13 @@
         </div>
     </div>
 
-    <div class="panel replace-me">
-        <h4>Click here for details</h4>
+    <div class="row">
+        @Html.DisplayFor(m => m.Equipment)
     </div>
+    @if (Model.Equipment.ValidationErrorsCount > 0)
+    {
+        <div class="alert-box info">
+            <span>You have @Model.Equipment.ValidationErrorsCount errors with your gear that need to get fixed!</span>
+        </div>
+    }
 </div>
