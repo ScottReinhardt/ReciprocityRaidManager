@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using StructureMap;
 using WoW.Core;
 using WoW.Core.Enums;
 using WoW.Core.Interfaces;
 using WoW.Core.Models;
-using WoW.Core.Objects;
-using WoW.Models;
+using WoW.DependencyResolution;
 using WoW.Models.Raid;
-using WoW.Sessoin;
+using WoW.Session;
 
 namespace WoW.Controllers
 {
@@ -18,40 +18,44 @@ namespace WoW.Controllers
     {
         private readonly ICharacterImporter _importer;
         private readonly IWoWPersistanceProvider _dataProvider;
+        public IRaidWrapper Raid;
 
         public RaidController(ICharacterImporter importer, IWoWPersistanceProvider dataProvider)
         {
             _importer = importer;
             _dataProvider = dataProvider;
+            IContainer container = IoC.Initialize();
+            Raid = container.GetInstance<IRaidWrapper>();
+            Raid.SetDataProviders(dataProvider, HttpContext);
         }
 
         public ActionResult Index()
         {
-            var attempt = _dataProvider.LoadRaidModel();
+            var raid = Raid.Raid;
 
-            if (!attempt)
+            if (raid == null)
             {
                 return RedirectToAction("Index", "Home");
             }
             var model = new RaidSummaryModel()
             {
-                Raiders = attempt.Result.Raiders ?? new List<PlayerModel>(),
+                Raiders = raid.Raiders ?? new List<PlayerModel>(),
             };
             return View(model);
         }
 
         public ActionResult Roster()
         {
-            var attempt = _dataProvider.LoadRaidModel();
+            var raid = Raid.Raid;
 
-            if (!attempt)
+            if (raid == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             return View(new AddRaiderModel()
             {
-                Raiders = attempt.Result.Raiders ?? new List<PlayerModel>(),
+                Raiders = raid.Raiders ?? new List<PlayerModel>(),
             });
         }
 
@@ -60,7 +64,7 @@ namespace WoW.Controllers
         {
             try
             {
-                var raid = _dataProvider.GetRaidModelFromSessionOrProvider();
+                var raid = Raid.Raid;
                 if (!_dataProvider.RemoveRaider(id, raid.RaidId))
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -84,11 +88,11 @@ namespace WoW.Controllers
                 player.LogsProfileLink = string.Format(
                     "https://www.warcraftlogs.com/rankings/character_name/{0}/{1}/us",
                     model.NewRaider.Name, model.NewRaider.Realm);
-                player.RaidId = RaidSession.RaidId;
+                player.RaidId = Raid.RaidId;
                 if (_dataProvider.AddRaider(player))
                 {
                     model.Raiders.Add(player);
-                    RaidSession.Raid.Raiders.Add(player);
+                    Raid.Raid.Raiders.Add(player);
                     model.NewRaider = new PlayerModel();
                 }
                 else
@@ -106,16 +110,16 @@ namespace WoW.Controllers
 
         public ActionResult RaidComp()
         {
-            var attempt = _dataProvider.LoadRaidModel();
+            var raid = Raid.Raid;
 
-            if (!attempt)
+            if (raid == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
             var model = new RaidCompModel()
             {
-                Raiders = attempt.Result.Raiders ?? new List<PlayerModel>(),
+                Raiders = raid.Raiders ?? new List<PlayerModel>(),
             };
             model.ClothWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Cloth);
             model.LeatherWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Leather);

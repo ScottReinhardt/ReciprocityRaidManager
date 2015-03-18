@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using NSubstitute;
 using NUnit.Framework;
 using WoW.Controllers;
-using WoW.Core.Attempt;
 using WoW.Core.Interfaces;
 using WoW.Core.Models;
-using WoW.Sessoin;
+using WoW.Models.Raid;
+using WoW.Session;
 
 namespace WoW.Tests.WoW.Web.Controllers
 {
@@ -29,36 +25,13 @@ namespace WoW.Tests.WoW.Web.Controllers
             _dataProvider = Substitute.For<IWoWPersistanceProvider>();
             controller = new RaidController(_importer,_dataProvider);
             context = new MockHttpContextBase(controller, "");
-            context.HttpContext.Session["raidId"] = 1;
-            context.HttpContext.Session["raid"] = new RaidModel();
-            RaidSession.Session = context.HttpContext.Session;
-        }
-
-        [Test]
-        public void GetRaidFromSession()
-        {
-            _dataProvider.GetRaiderDetails(1).Returns((RaidModel) null);
-            var raid = _dataProvider.GetRaidModelFromSessionOrProvider();
-
-            Assert.NotNull(raid);
-        }
-
-        [Test]
-        public void GetRaidFromDataProvider()
-        {
-            _dataProvider.GetRaiderDetails(1).Returns(new RaidModel());
-            context.HttpContext.Session["raid"] = null;
-            var raid = _dataProvider.GetRaidModelFromSessionOrProvider();
-
-            Assert.NotNull(raid);
-            Assert.AreEqual(RaidSession.RaidId, 1);
-            Assert.IsNotNull(RaidSession.Raid);
-            Assert.AreEqual(RaidSession.Raid.GetType(), typeof(RaidModel));
+            controller.Raid = Substitute.For<IRaidWrapper>();
         }
 
         [Test]
         public void IndexWhenRaidSessionNotNull()
         {
+            controller.Raid.Raid.Returns(new RaidModel());
             var view = controller.Index() as ViewResult;
 
             Assert.AreEqual(view.ViewName, "");
@@ -67,12 +40,56 @@ namespace WoW.Tests.WoW.Web.Controllers
         [Test]
         public void IndexWhenRaidSessionFail()
         {
-            _dataProvider.GetRaidModelFromSessionOrProvider().Returns(x => null);
-
+            controller.Raid.Raid.Returns(x => null);
+            
             var redirect = controller.Index() as RedirectToRouteResult;
 
             Assert.AreEqual(redirect.RouteValues["action"], "Index");
             Assert.AreEqual(redirect.RouteValues["controller"], "Home");
+        }
+
+        [Test]
+        public void RosterWithNullRaid()
+        {
+            controller.Raid.Raid.Returns(x => null);
+
+            var redirect = controller.Roster() as RedirectToRouteResult;
+
+            Assert.AreEqual(redirect.RouteValues["action"], "Index");
+            Assert.AreEqual(redirect.RouteValues["controller"], "Home");
+        }
+
+        [Test]
+        public void Roster()
+        {
+            controller.Raid.Raid.Returns(x => new RaidModel());
+
+            var view = controller.Roster() as ViewResult;
+
+            Assert.AreEqual(view.ViewName, "");
+            var model = view.Model as AddRaiderModel;
+            Assert.IsNotNull(model);
+            Assert.IsNotNull(model.Raiders);
+        }
+
+        [Test]
+        public void RemoveRaiderSuccess()
+        {
+            controller.Raid.Raid.Returns(x => new RaidModel{RaidId = 1, Raiders = new List<PlayerModel>{new PlayerModel{PlayerId = 2, RaidId = 1}}});
+            _dataProvider.RemoveRaider(2, 1).Returns(true);
+            var result = controller.RemoveRaider(2) as JsonResult;
+            Assert.NotNull(result);
+            Assert.AreEqual(result.Data, 2);
+        }
+
+        [Test]
+        public void RemoveRaiderFail()
+        {
+            controller.Raid.Raid.Returns(x => new RaidModel { RaidId = 1, Raiders = new List<PlayerModel> { new PlayerModel { PlayerId = 2, RaidId = 1 } } });
+            _dataProvider.RemoveRaider(2, 1).Returns(false);
+            var result = controller.RemoveRaider(2) as HttpStatusCodeResult;
+            Assert.NotNull(result);
+            Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.BadRequest);
         }
     }
 }

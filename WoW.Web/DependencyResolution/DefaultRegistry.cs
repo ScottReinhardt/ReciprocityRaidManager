@@ -19,6 +19,7 @@ using BattleNetApi;
 using WarcraftLogs;
 using WoW.Core.Interfaces;
 using WoW.Persistance;
+using WoW.Session;
 
 namespace WoW.DependencyResolution {
     using StructureMap.Configuration.DSL;
@@ -31,6 +32,7 @@ namespace WoW.DependencyResolution {
             For<ICharacterImporter>().Use<BattleNetApiClient>().SelectConstructor(() => new BattleNetApiClient());
             For<IWoWPersistanceProvider>().Use<WoWDbProvider>();
             For<ILogApi>().Use<WarcraftLogsApi>();
+            For<IRaidWrapper>().Use<RaidWrapper>();
             Scan(
                 scan => {
                     scan.AssembliesFromApplicationBaseDirectory();
