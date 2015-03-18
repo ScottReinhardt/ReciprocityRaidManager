@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
+using WoW.Core;
 using WoW.Core.Enums;
 using WoW.Core.Interfaces;
 using WoW.Core.Models;
@@ -54,24 +56,22 @@ namespace WoW.Controllers
         }
 
         [HttpPost]
-        public ActionResult LoadRaider(int id)
+        public ActionResult RemoveRaider(int id)
         {
             try
             {
-                var attempt = _dataProvider.LoadRaidModel();
-                if (!attempt)
-                    return new HttpNotFoundResult();
-
-                var player = attempt.Result.Raiders.FirstOrDefault(p => p.PlayerId == id);
-
-                if(player == null)
-                    return new HttpNotFoundResult();
+                var raid = _dataProvider.GetRaidModelFromSessionOrProvider();
+                if (!_dataProvider.RemoveRaider(id, raid.RaidId))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
                 
-                return PartialView("Partials/PlayerPartial", player);
+                raid.Raiders.Remove(raid.Raiders.First(p => p.PlayerId == id));
+                return new JsonResult(){Data = id};
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                return new HttpNotFoundResult();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
         }
 
@@ -96,7 +96,7 @@ namespace WoW.Controllers
                     throw new Exception("Changes not saved successfully");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ModelState.AddModelError("PlayerNotFound", "Player not found or internal server error.  Please check server and name and try again.");
                 return View("Roster", model);
@@ -119,8 +119,13 @@ namespace WoW.Controllers
             };
             model.ClothWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Cloth);
             model.LeatherWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Leather);
-            model.Mailearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Mail);
+            model.MailWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Mail);
             model.PlateWearers = model.Raiders.Count(p => p.ArmorType == ArmorType.Plate);
+
+
+            model.ConquerorToken = model.Raiders.Count(p => p.Class.In(TierTokens.Conqueror));
+            model.ProtectorToken = model.Raiders.Count(p => p.Class.In(TierTokens.Protector));
+            model.VanquisherToken = model.Raiders.Count(p => p.Class.In(TierTokens.Vanquisher));
 
             var buffs = model.Raiders.Where(p => p.Class != Class.Hunter).SelectMany(o => o.BuffsBrought).Distinct().ToList();
             var allBuffs = Enum.GetValues(typeof(Buffs)).Cast<Buffs>();

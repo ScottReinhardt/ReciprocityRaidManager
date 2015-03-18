@@ -19,8 +19,20 @@
 }
 @foreach (var raider in Model.Raiders)
 {
-    <div class="panel">
+    <div class="panel" data-id="@raider.PlayerId">
         <div class="row">
+            <div class="large-3 medium-3 columns">
+                @using (Ajax.BeginForm("RemoveRaider", "Raid", new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    OnSuccess = "removeRaider",
+                    OnFailure = "error"
+                }))
+                {
+                    <input type="hidden" name="id" value="@raider.PlayerId"/>
+                    <input type="submit" value="Delete" />
+                }
+            </div>
             <div class="large-3 medium-3 columns">
                 <h4>@Html.DisplayFor(m => raider.Name)</h4>
             </div>
@@ -30,3 +42,13 @@
         </div>
     </div>
 }
+
+<script type="text/javascript">
+    function removeRaider(raider) {
+        $('.panel[data-id='+raider+']').remove();
+    }
+
+    function error() {
+        alert('An error occured.  Please try again');
+    }
+</script>

@@ -4,26 +4,29 @@
         <h1>Reciprocity</h1>
     </div>
 </div>
-@using (Html.BeginForm("CreateRaidGroup","Home", FormMethod.Post))
+@using (Html.BeginForm("CreateRaidGroup", "Home", FormMethod.Post))
 {
 
     <div class="row">
         @if (!ViewData.ModelState.IsValid)
         {
             <div class="large-12 columns">
-                <div class="panel">
-                    @Html.ValidationMessageFor(m => m.GroupName)
+                <div class="panel error-message">
+                    @Html.ValidationSummary()
                 </div>
             </div>
         }
         <div class="large-12 columns">
+            <h3>Create or Load Raid Group</h3>
+        </div>
+        <div class="large-12 columns">
             <div class="panel">
                 @Html.LabelFor(m => m.GroupName)
                 @Html.EditorFor(m => m.GroupName)
-                
+
                 @Html.LabelFor(m => m.ServerName)
                 @Html.EditorFor(m => m.ServerName)
-                <input type="submit" value="Create"/>
+                <input type="submit" value="Create" />
             </div>
         </div>
     </div>

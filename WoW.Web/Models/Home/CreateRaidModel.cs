@@ -4,7 +4,7 @@ namespace WoW.Models.Home
 {
     public class CreateRaidModel
     {
-        [Display(Name = "Please enter a raid group name")]
+        [Display(Name = "Please enter raid group name")]
         [Required(ErrorMessage = "Group name is required")]
         public string GroupName { get; set; }
         

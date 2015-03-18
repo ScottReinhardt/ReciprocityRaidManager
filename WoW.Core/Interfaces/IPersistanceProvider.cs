@@ -8,6 +8,7 @@ namespace WoW.Core.Interfaces
         int GetRaidByName(string name, string server);
         int CreateRaidGroup(string name, string server);
         bool AddRaider(PlayerModel raider);
+        bool RemoveRaider(int raiderId, int raidId);
         RaidModel GetRaiderDetails(int raidId);
     }
 }

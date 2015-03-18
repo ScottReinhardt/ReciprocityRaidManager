@@ -21,7 +21,7 @@ namespace WoW
             }
             
             raid = dataProvider.GetRaiderDetails(RaidSession.RaidId);
-            if (raid.Raiders != null)
+            if (raid != null && raid.Raiders != null)
             {
                 raid.Raiders.OrderBy(p => p.Name);
             }
@@ -35,6 +35,11 @@ namespace WoW
         {
             var raid = dataProvider.GetRaidModelFromSessionOrProvider();
             return Attempt<RaidModel>.SucceedIf(raid != null, raid);
+        }
+
+        public static bool In<T>(this T o, IEnumerable<T> enumerable)
+        {
+            return enumerable.Contains(o);
         }
     }
 }

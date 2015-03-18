@@ -58,6 +58,28 @@ namespace WoW.Persistance
             }
         }
 
+        public bool RemoveRaider(int raiderId, int raidId)
+        {
+            try
+            {
+                var raider = _dbContext.Player.FirstOrDefault(p => p.PlayerId == raiderId && p.RaidId == raidId);
+
+                if (raider == null)
+                {
+                    return false;
+                }
+
+                _dbContext.Player.Remove(raider);
+
+                _dbContext.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         public RaidModel GetRaiderDetails(int raidId)
         {
             try

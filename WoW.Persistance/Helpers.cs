@@ -12,5 +12,10 @@ namespace WoW.Persistance
         {
             return !enumerable.Any(predicate);
         }
+
+        public static bool None<T>(this IEnumerable<T> enumerable)
+        {
+            return !enumerable.Any();
+        }
     }
 }

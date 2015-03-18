@@ -38,7 +38,7 @@ namespace WoW.Controllers
 
             Session["raidId"] = id;
             Session["raidName"] = model.GroupName;
-            return RedirectToAction("Roster", "Raid", new {raidId = id});
+            return RedirectToAction("Roster", "Raid");
         }
     }
 }
