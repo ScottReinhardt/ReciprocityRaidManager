@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 using NSubstitute;
@@ -38,7 +39,7 @@ namespace WoW.Tests.WoW.Web.Controllers
         }
 
         [Test]
-        public void IndexWhenRaidSessionFail()
+        public void IndexWhenRaidSessionIsNull()
         {
             controller.Raid.Raid.Returns(x => null);
             
@@ -91,5 +92,17 @@ namespace WoW.Tests.WoW.Web.Controllers
             Assert.NotNull(result);
             Assert.AreEqual(result.StatusCode, (int)HttpStatusCode.BadRequest);
         }
+
+        //[Test]
+        //public void NewRaiderSuccess()
+        //{
+        //    throw new NotImplementedException();
+        //}
+        //
+        //[Test]
+        //public void NewRaiderFail()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

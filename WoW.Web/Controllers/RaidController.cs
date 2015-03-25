@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using StructureMap;
 using WoW.Core;
@@ -24,9 +25,14 @@ namespace WoW.Controllers
         {
             _importer = importer;
             _dataProvider = dataProvider;
+        }
+
+        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        {
+            base.Initialize(requestContext);
             IContainer container = IoC.Initialize();
             Raid = container.GetInstance<IRaidWrapper>();
-            Raid.SetDataProviders(dataProvider, HttpContext);
+            Raid.SetDataProviders(_dataProvider, ControllerContext.HttpContext);
         }
 
         public ActionResult Index()
